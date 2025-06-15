@@ -23,13 +23,12 @@ A powerful glyph interface management app for Nothing Phones that enhances the G
 - [Text Readability Guide](Text_Readability_Improvements.md) - Typography and text optimization
 - [Wavy Progress Guide](WavyProgressIndicator_Usage_Guide.md) - Custom progress indicator implementation
 
-## Supported Phone Models
+## Confirmed Working & Supported Phone Models
 
-- Nothing Phone (1)
 - Nothing Phone (2)
-- Nothing Phone (2a) and (2a) Plus
-- Nothing Phone (3a) and (3a) Pro
-
+- Nothing Phone (2a) Plus
+- Nothing Phine (3a)
+  
 Each phone model's unique glyph patterns are automatically detected and optimized.
 
 ## Core Components
@@ -74,7 +73,7 @@ The app features a comprehensive card template system:
 
 ## Version Information
 
-- Current Version: 1.0.3A-Fix
+- Current Version: 1.0.5-GlyphRewrite
 - Minimum SDK: 34 (Android 14+)
 - Target SDK: 34
 - Build Tools: Latest Android Studio
