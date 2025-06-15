@@ -26,6 +26,7 @@ A powerful glyph interface management app for Nothing Phones that enhances the G
 ## Confirmed Working & Supported Phone Models
 
 - Nothing Phone (2)
+- Nothing Phone 2(a)
 - Nothing Phone (2a) Plus
 - Nothing Phone (3a)
   
