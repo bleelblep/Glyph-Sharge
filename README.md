@@ -93,10 +93,19 @@ All service management, simplified.
 
 Modern looks meet functional comfort:
 
-* **Material 3 UI**
-  Follows Google's latest design system for cards, colors, and interactions.
+**Font Styles**
+  Customize your Glyph Sharge experience with three font options, including official Nothing typefaces:
 
-* **Theme Control**
+* System
+Uses your device’s default system font for a clean and familiar look.
+
+* Ndot
+An official Nothing Phone font featuring a modern, minimalist dot-matrix style.
+
+* Ntype
+Another official Nothing font designed for clarity and style.
+
+**Theme Control**
   Toggle between light and dark modes and apply your preferred font.
 
 ---
