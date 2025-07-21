@@ -1,84 +1,138 @@
-# Glyph Sharge
+# ⚡ Glyph Sharge
 
-A powerful glyph interface management app for Nothing Phones that enhances the Glyph Interface capabilities with advanced features and customization options.
+> 🔐 **Note**: Glyph Sharge uses an **official Nothing API key**, so **debug mode is not required** for any glyph functionality.
 
-## Features
+---
 
-- **Glyph Service Control**: Comprehensive management of the Nothing Glyph Interface
-- **Power Peek**: Quick battery status visualization through glyph patterns
-- **Glyph Guard**: Security feature with customizable duration and sound alerts
-- **Hardware Diagnostics**: Built-in tools for testing and verifying glyph functionality
-- **Material 3 Design**: Modern UI with standardized card templates
-- **Theme Customization**: Dark/Light theme support with custom font options
-- **Adaptive UI**: Smart detection of Nothing Phone models with optimized glyph patterns
+**Power. Protect. Personalize. All through light.**
 
-## Documentation
+[![GitHub Releases](https://img.shields.io/github/v/release/bleelblep/Glyph-Sharge?label=Download\&style=flat-square)](https://github.com/bleelblep/Glyph-Sharge/releases)
 
-- [Glyph Implementation Guide](GLYPH_IMPLEMENTATION.md) - Detailed technical documentation of glyph interface implementation
-- [Material 3 Implementation Guide](Material3_Expressive_Implementation_Guide.md) - Material 3 design system implementation
-- [Card Examples Guide](Enhanced_Card_Examples_Guide.md) - Examples and usage of card components
-- [Animation and Font Guide](Animation_And_Font_Fixes.md) - Animation system and typography documentation
-- [Motion Layout Guide](MOTIONLAYOUT_ANIMATIONS.md) - Motion layout animations and transitions
-- [Settings Readability Guide](Settings_Text_Readability_Fixes.md) - Settings UI and text improvements
-- [Text Readability Guide](Text_Readability_Improvements.md) - Typography and text optimization
-- [Wavy Progress Guide](WavyProgressIndicator_Usage_Guide.md) - Custom progress indicator implementation
+---
 
-## Confirmed Working & Supported Phone Models
+## 🔌 What is Glyph Sharge?
 
-- Nothing Phone (2)
-- Nothing Phone 2(a)
-- Nothing Phone (2a) Plus
-- Nothing Phone (3a)
-  
-Each phone model's unique glyph patterns are automatically detected and optimized.
+Glyph Sharge is your ultimate control center for the Nothing Glyph Interface. With a modern Material You design and deep system integration, it lets you manage power, enhance security, and personalize your experience — all through your phone’s glowing glyphs.
 
-## Core Components
+Whether you're checking charge levels or activating security features, Glyph Sharge turns your Nothing Phone into a functional and expressive light interface.
 
-### Glyph Management
-- `GlyphManager`: Core interface to the Nothing Glyph SDK
-- `GlyphAnimationManager`: Handles complex animation patterns
-- `GlyphController`: Direct channel control interface
+---
 
-### Features
-- **Power Peek**: Battery status visualization
-- **Glyph Guard**: Security monitoring with customizable alerts
-- **Hardware Diagnostics**: Comprehensive testing tools
-- **Vibration Settings**: Customizable haptic feedback
-- **Theme Settings**: UI customization options
+## 🌟 Key Features
 
-## Technical Implementation
+### ⚡ Power Peek
 
-- Built with Jetpack Compose and Material 3
-- Uses Hilt for dependency injection
-- Implements MVVM architecture
-- Optimized for Android 14+ (API 34)
-- Background service support for persistent features
+*Battery monitoring with shake detection*
 
-## Development Setup
+* Shake your device to view battery percentage
+* Works even when the screen is off
+* Customizable sensitivity and display duration
+* Visualize your phone’s battery status through smooth glyph patterns
 
-1. Place the Nothing Glyph SDK JAR files in the `app/libs` folder
-2. Enable Glyph Interface debug mode on your Nothing Phone:
-   ```bash
-   adb shell settings put global nt_glyph_interface_debug_enable 1
-   ```
-3. The app uses the "test" API key in debug mode (configured in AndroidManifest.xml)
+---
 
-## UI Components
+### 🛡️ Glyph Guard
 
-The app features a comprehensive card template system:
-- `StandardCard`: Base template with maximum flexibility
-- `SimpleCard`: Basic cards with minimal content
-- `IconCard`: Cards with prominent icon display
-- `ActionCard`: Cards with prominent call-to-action buttons
-- `ContentCard`: Cards with custom content layouts
+*USB theft protection system*
 
-## Version Information
+* Protects your device from USB-based attacks
+* Alerts you if your device is unplugged unexpectedly
+* Designed for public charging safety
+* Timed glyph lighting with optional sound alerts
 
-- Current Version: 1.0.6-GlyphRewrite
-- Minimum SDK: 34 (Android 14+)
-- Target SDK: 34
-- Build Tools: Latest Android Studio
+---
 
-## Credits
+### ✨ Glow Gate
 
-Developed for Nothing Phone users to enhance their Glyph Interface experience. 
+*Unlock animation with glyphs*
+
+* Animates the glyphs when unlocking your device
+* Adds a unique visual flair to your lock screen
+* Can be enabled or disabled in settings
+
+---
+
+### 🔋 Low Battery Alert
+
+*Get notified when battery is low*
+
+* Alerts when your battery drops below a defined level
+* Helps you avoid unexpected shutdowns
+* Customizable alert threshold
+
+---
+
+### 📊 Battery Story
+
+*Track charging patterns and health*
+
+* Visualizes your charging sessions and battery health
+* Helps you understand your charging habits
+* Provides insights for battery longevity
+
+---
+
+### 🌙 Quiet Hours
+
+*Automatically disable glyphs during sleep*
+
+* Schedules times when glyphs are disabled
+* Prevents unwanted notifications and lights at night
+* Customizable start and end times
+
+---
+
+### 🎛 Glyph Service Control
+
+Take full control of the Glyph Interface with start, stop, and configuration access.
+All service management, simplified.
+
+---
+
+## 🎨 Design & Personalization
+
+Modern looks meet functional comfort:
+
+* **Material 3 UI**
+  Follows Google's latest design system for cards, colors, and interactions.
+
+* **Theme Control**
+  Toggle between light and dark modes and apply your preferred font.
+
+---
+
+## 📦 Compatible Devices
+
+Glyph Sharge works on the following Nothing Phone models:
+
+* ✅ **Phone (1)**
+* ✅ **Phone (2)**
+* ✅ **Phone (2a / 2a+)**
+* ✅ **Phone (3a / 3a Pro)**
+* ❌ **Phone (3)** – *Not supported*
+
+---
+
+## 🧩 Simple & Powerful
+
+* **No Clutter**
+  Organized card-based layout for quick, distraction-free use.
+
+* **Touch Optimized**
+  Large controls make everything easy to interact with.
+
+---
+
+Glyph Sharge empowers you to control your Nothing Phone’s light features like never before — with tools for charge visualization, security, and customization. A beautiful fusion of light and utility.
+
+**⚙️ Manage it. Secure it. Light it up your way.**
+
+---
+
+## 📱 Screenshots
+
+| ![1](screenshots/1.png) | ![2](screenshots/2.png) | ![3](screenshots/3.png) | ![4](screenshots/4.png) |
+| ----------------------- | ----------------------- | ----------------------- | ----------------------- |
+| ![5](screenshots/5.png) | ![6](screenshots/6.png) | ![7](screenshots/7.png) | 
+
+---
