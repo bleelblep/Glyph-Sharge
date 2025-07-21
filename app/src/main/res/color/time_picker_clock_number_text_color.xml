@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Selected state -->
+    <item android:color="?attr/colorOnSecondary" android:state_enabled="true" android:state_selected="true"/>
+    <!-- Checked state -->
+    <item android:color="?attr/colorOnSecondary" android:state_enabled="true" android:state_checked="true"/>
+    <!-- Default enabled state -->
+    <item android:alpha="0.87" android:color="?attr/colorOnSurface" android:state_enabled="true"/>
+    <!-- Disabled state -->
+    <item android:alpha="0.33" android:color="?attr/colorOnSurface"/>
+</selector> 

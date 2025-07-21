@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- GlyphSharge App Colors -->
+    <color name="glyph_zen_red">#FFd71921</color>
+    <color name="glyph_zen_red_dark">#FFa01419</color>
+    <color name="glyph_zen_light_gray">#FFF5F5F5</color>
+    <color name="glyph_zen_dark_gray">#FF666666</color>
+    <color name="glyph_zen_dark_surface">#FF1E1E1E</color>
+    <color name="glyph_zen_red_ripple">#33d71921</color>
+    
+    <!-- App Purple Colors -->
+    <color name="glyph_zen_purple">#FF674FA3</color>
+    <color name="glyph_zen_purple_light">#FF8D7BA5</color>
+    <color name="glyph_zen_purple_container">#FFE8E1F5</color>
+    <color name="glyph_zen_purple_dial_background">#FFF5F0FF</color>
+    
+    <!-- TimePicker Specific Colors -->
+    <color name="time_picker_clock_face_background">#FFF8F8F8</color>
+    <color name="time_picker_clock_face_background_dark">#FF2A2A2A</color>
+    <color name="time_picker_clock_number_text">#FF000000</color>
+    <color name="time_picker_clock_number_text_dark">#FFFFFFFF</color>
+    <color name="time_picker_selector_purple">#FF674FA3</color>
+    <color name="time_picker_dial_purple">#FFF5F0FF</color>
+    <color name="time_picker_outline_purple">#FFE8E1F5</color>
+</resources>

@@ -1,0 +1,317 @@
+package com.bleelblep.glyphsharge.ui.screens
+
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.bleelblep.glyphsharge.R
+import com.bleelblep.glyphsharge.ui.theme.LocalFontState
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ThemeSettingsScreen(
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val scrollState = rememberLazyListState()
+
+    // Simple and precise scroll detection - transparent ONLY when exactly at original position
+    val isScrolled by remember {
+        derivedStateOf {
+            scrollState.firstVisibleItemIndex > 0 || scrollState.firstVisibleItemScrollOffset > 0
+        }
+    }
+    
+    val appBarBackgroundColor = if (isScrolled) {
+        MaterialTheme.colorScheme.surface // Solid when any scroll at all
+    } else {
+        MaterialTheme.colorScheme.surface.copy(alpha = 0.0f) // Transparent only when exactly at original position
+    }
+
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "Theme Settings",
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = appBarBackgroundColor
+                ),
+                windowInsets = WindowInsets.statusBars
+            )
+        },
+        containerColor = MaterialTheme.colorScheme.background,
+        contentWindowInsets = WindowInsets(0.dp)
+    ) { paddingValues ->
+        LazyColumn(
+            state = scrollState,
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(
+                start = 16.dp,
+                end = 16.dp,
+                top = paddingValues.calculateTopPadding() + 16.dp,
+                bottom = paddingValues.calculateBottomPadding() + WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding() + 16.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            // Info Card
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                    shape = MaterialTheme.shapes.large
+                ) {
+                    Column(
+                        modifier = Modifier.padding(20.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(24.dp)
+                            )
+
+                            Spacer(modifier = Modifier.width(12.dp))
+
+                            Text(
+                                text = "Theme Customization",
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            text = "Dynamic LED Themes",
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.Medium
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            lineHeight = 20.sp
+                        )
+                    }
+                }
+            }
+
+            // Theme Cards Section Header
+            item {
+                HomeSectionHeader(title = "Theme Presets")
+            }
+
+            // Theme Cards Side by Side
+            item {
+                FeatureGrid {
+                    // First Theme Card
+                    CalibrationFeatureCard(
+                        title = "Lorem Ipsum",
+                        description = "Dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        icon = painterResource(id = R.drawable.graph_6_24px),
+                        onClick = { /* TODO: Implement */ },
+                        modifier = Modifier.weight(1f),
+                        iconSize = 40
+                    )
+
+                    // Second Theme Card
+                    CalibrationFeatureCard(
+                        title = "Consectetur",
+                        description = "Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+                        icon = painterResource(id = R.drawable.extension_24px),
+                        onClick = { /* TODO: Implement */ },
+                        modifier = Modifier.weight(1f),
+                        iconSize = 40
+                    )
+                }
+            }
+
+            // Theme Options Card
+            item {
+                ThemeOptionsCard()
+            }
+        }
+    }
+}
+
+@Composable
+fun CalibrationFeatureCard(
+    title: String,
+    description: String,
+    icon: Painter,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    iconSize: Int = 40
+) {
+    FeatureCard(
+        title = title,
+        description = description,
+        icon = icon,
+        onClick = onClick,
+        modifier = modifier.aspectRatio(1f),
+        iconSize = iconSize,
+        contentPadding = PaddingValues(16.dp)
+    )
+}
+
+@Composable
+private fun ThemeOptionsCard(
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+        shape = MaterialTheme.shapes.large
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = "Theme Options",
+                style = MaterialTheme.typography.titleLarge
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Customize your Nothing phone Glyph themes",
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Grid of theme options (8 options arranged in rows)
+            val themeNames = listOf(
+                "Eiusmod", "Tempor", "Incididunt", "Labore",
+                "Dolore", "Magna", "Aliqua", "Veniam"
+            )
+
+            // Arrange in rows of 4, 4
+            for (rowIndex in 0 until 2) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    val startIndex = rowIndex * 4
+                    val endIndex = minOf(startIndex + 4, themeNames.size)
+
+                    for (i in startIndex until endIndex) {
+                        ThemeButton(
+                            themeIndex = i + 1,
+                            themeName = themeNames[i],
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
+
+                if (rowIndex < 1) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ThemeButton(
+    themeIndex: Int,
+    themeName: String,
+    modifier: Modifier = Modifier
+) {
+    var isPressed by remember { mutableStateOf(false) }
+    val fontState = LocalFontState.current
+
+    OutlinedButton(
+        onClick = {
+            isPressed = true
+            // Reset pressed state after a short delay
+            GlobalScope.launch {
+                delay(150)
+                isPressed = false
+            }
+        },
+        modifier = modifier
+            .height(56.dp)
+            .graphicsLayer {
+                scaleX = if (isPressed) 0.95f else 1f
+                scaleY = if (isPressed) 0.95f else 1f
+            },
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = if (isPressed) 
+                Color(0xFF8B0000) // Dark red when pressed
+            else 
+                Color(0xFFE53E3E), // glyphzenred background
+            contentColor = Color.White
+        ),
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (isPressed)
+                Color(0xFF8B0000) // Dark red border when pressed
+            else
+                Color(0xFFE53E3E) // glyphzenred border
+        ),
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(
+                text = "T$themeIndex",
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontFamily = fontState.getTitleFont()
+                ),
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+            Text(
+                text = themeName,
+                style = MaterialTheme.typography.labelSmall,
+                maxLines = 1,
+                color = Color.White
+            )
+        }
+    }
+} 

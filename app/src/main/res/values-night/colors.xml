@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Purple Colors - Dark Theme -->
+    <color name="glyph_zen_purple_dial_background">#FF2D1B3D</color>
+    
+    <!-- TimePicker Dark Theme Colors -->
+    <color name="time_picker_clock_face_background">@color/time_picker_clock_face_background_dark</color>
+    <color name="time_picker_clock_number_text">@color/time_picker_clock_number_text_dark</color>
+    <color name="time_picker_dial_purple">#FF2D1B3D</color>
+    <color name="time_picker_outline_purple">#FF4A3D5A</color>
+</resources> 

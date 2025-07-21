@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.GlyphSharge" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Material 3 TimePicker Theming -->
+        <item name="colorPrimary">@color/glyph_zen_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/glyph_zen_red_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorSurfaceVariant">@color/glyph_zen_light_gray</item>
+        <item name="colorOnSurfaceVariant">@color/glyph_zen_dark_gray</item>
+        
+        <!-- TimePicker specific attributes -->
+        <item name="materialTimePickerStyle">@style/Widget.App.TimePicker</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+    </style>
+
+    <!-- Dark theme variant -->
+    <style name="Theme.GlyphSharge.Dark" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Material 3 TimePicker Theming for Dark Mode -->
+        <item name="colorPrimary">@color/glyph_zen_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/glyph_zen_red_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/glyph_zen_dark_surface</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSurfaceVariant">@color/glyph_zen_dark_gray</item>
+        <item name="colorOnSurfaceVariant">@color/glyph_zen_light_gray</item>
+        
+        <!-- TimePicker specific attributes -->
+        <item name="materialTimePickerStyle">@style/Widget.App.TimePicker</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+    </style>
+
+    <!-- Transparent theme for MainActivity - simplified -->
+    <style name="Theme.GlyphSharge.Transparent" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Custom TimePicker Widget Style -->
+    <style name="Widget.App.TimePicker" parent="Widget.Material3.MaterialTimePicker">
+        <item name="clockFaceBackgroundColor">@color/time_picker_clock_face_background</item>
+        <item name="clockHandColor">@color/glyph_zen_red</item>
+        <item name="clockNumberTextColor">@color/time_picker_clock_number_text_color</item>
+    </style>
+
+    <!-- Custom AlertDialog Theme for TimePicker -->
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/glyph_zen_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.TextButton.Dialog</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button.TextButton.Dialog</item>
+    </style>
+
+    <!-- Custom Dialog Button Style -->
+    <style name="Widget.App.Button.TextButton.Dialog" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/glyph_zen_red</item>
+        <item name="rippleColor">@color/glyph_zen_red_ripple</item>
+    </style>
+
+</resources>

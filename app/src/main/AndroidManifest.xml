@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.nothing.ketchum.permission.ENABLE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.TURN_SCREEN_ON" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+    <!-- Support for high refresh rate displays -->
+    <uses-feature
+        android:name="android.hardware.touchscreen.multitouch"
+        android:required="false" />
+
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+
+    <application
+        android:name=".GlyphShargeApplication"
+        android:enableOnBackInvokedCallback="true"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GlyphSharge"
+        android:largeHeap="true"
+        tools:targetApi="34">
+
+        <!-- Nothing Glyph API Key (use "test" for debugging) -->
+        <meta-data
+            android:name="NothingKey"
+            android:value="3ba6b42560e7442c9475d8029807158e" />
+
+        <!-- FileProvider for sharing log files -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.GlyphSharge"
+            android:windowSoftInputMode="adjustResize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".receiver.ChargingEventReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.POWER_CONNECTED" />
+                <action android:name="android.intent.action.POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receiver.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".services.PowerPeekService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" >
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="This service uses the accelerometer to provide the PowerPeek feature when the screen is off." />
+        </service>
+
+        <service
+            android:name=".services.GlyphGuardService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" >
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="This service monitors for USB disconnection and provides security alerts using glyph interface." />
+        </service>
+
+        <!-- Foreground service that samples battery data while charging -->
+        <service
+            android:name=".services.ChargeTrackerService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- Pulse Lock foreground service -->
+        <service
+            android:name=".services.PulseLockService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" >
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="This service plays a glyph animation on device unlock (Pulse Lock)." />
+        </service>
+
+        <!-- Persistent foreground service for glyph features -->
+        <service
+            android:name=".services.GlyphForegroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" />
+
+        <!-- Low Battery Alert foreground service -->
+        <service
+            android:name=".services.LowBatteryAlertService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" >
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="This service monitors battery level and provides low battery alerts using glyph interface." />
+        </service>
+
+        <!-- Quiet Hours foreground service -->
+        <service
+            android:name=".services.QuietHoursService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" >
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="This service manages quiet hours by automatically disabling glyph animations during specified time periods." />
+        </service>
+
+    </application>
+
+</manifest>
