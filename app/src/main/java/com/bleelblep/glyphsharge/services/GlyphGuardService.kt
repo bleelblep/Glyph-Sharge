@@ -493,25 +493,34 @@ class GlyphGuardService : Service() {
                 getDefaultSoundUri()
             }
             
-            mediaPlayer = MediaPlayer().apply {
-                setDataSource(this@GlyphGuardService, alarmUri)
-                setAudioStreamType(AudioManager.STREAM_ALARM)
-                isLooping = true
-                prepare()
-                start()
+            var tempMediaPlayer: MediaPlayer? = null
+            try {
+                tempMediaPlayer = MediaPlayer().apply {
+                    setDataSource(this@GlyphGuardService, alarmUri)
+                    setAudioStreamType(AudioManager.STREAM_ALARM)
+                    isLooping = true
+                    prepare()
+                    start()
+                }
+                mediaPlayer = tempMediaPlayer
+
+                val soundDescription = if (customRingtoneUri != null) "custom ringtone" else "default alarm"
+                Log.d(TAG, "Playing $soundDescription for USB disconnection")
+
+                // Wait for the configured duration, then stop if still active
+                delay(settingsRepository.getGlyphGuardDuration())
+                if (isGuardActive) {
+                    stopAlert()
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error playing alarm sound: ${e.message}")
+                // Clean up MediaPlayer if it was created but failed during setup
+                tempMediaPlayer?.release()
+                mediaPlayer = null
             }
-            
-            val soundDescription = if (customRingtoneUri != null) "custom ringtone" else "default alarm"
-            Log.d(TAG, "Playing $soundDescription for USB disconnection")
-            
-            // Wait for the configured duration, then stop if still active
-            delay(settingsRepository.getGlyphGuardDuration())
-            if (isGuardActive) {
-                stopAlert()
-            }
-            
+
         } catch (e: Exception) {
-            Log.e(TAG, "Error playing alarm sound: ${e.message}")
+            Log.e(TAG, "Error in playAlarmSound: ${e.message}")
         }
     }
 

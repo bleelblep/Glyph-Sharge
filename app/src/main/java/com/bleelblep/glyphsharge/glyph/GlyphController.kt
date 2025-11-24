@@ -79,11 +79,14 @@ class GlyphController @Inject constructor(
 
     // Phone (3a/3a Pro) segments
     object Phone3a {
-        // B1-B5 segments (0-4)
-        const val B_START = 0
+        // C1-C20 segments (0-19)
+        const val C_START = 0
 
         // A1-A11 segments (20-30)
         const val A_START = 20
+
+        // B1-B5 segments (31-35)
+        const val B_START = 31
     }
 
     /**

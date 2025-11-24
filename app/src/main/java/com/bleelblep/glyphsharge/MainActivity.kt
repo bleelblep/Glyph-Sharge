@@ -1274,6 +1274,12 @@ class MainActivity : ComponentActivity() {
         animJob?.cancel()
         isGlyphDemoRunning = false
 
+        // Cancel restore session job to prevent memory leak
+        restoreSessionJob?.cancel()
+
+        // Clear session state callback to prevent listener leak
+        glyphManager.onSessionStateChanged = null
+
         // Only clean up glyph resources if user preference says service should be OFF.
         if (!settingsRepository.getGlyphServiceEnabled()) {
             glyphManager.cleanup()

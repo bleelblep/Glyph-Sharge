@@ -672,7 +672,7 @@ class SettingsRepository @Inject constructor(
         val endTimeInMinutes = getQuietHoursEndHour() * 60 + getQuietHoursEndMinute()
         
         return if (startTimeInMinutes <= endTimeInMinutes) {
-            // Same day range (e.g., 10 PM to 7 AM)
+            // Same day range (e.g., 9 AM to 5 PM)
             currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes <= endTimeInMinutes
         } else {
             // Overnight range (e.g., 10 PM to 7 AM next day)

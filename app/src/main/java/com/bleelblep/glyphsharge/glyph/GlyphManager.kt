@@ -36,9 +36,9 @@ class GlyphManager @Inject constructor(
     var mGM: com.nothing.ketchum.GlyphManager? = null
         private set
 
-    private var isInitialized = false
-    private var _isSessionActive = false
-    private var _isServiceConnected = false
+    private val isInitialized = AtomicReference<Boolean>(false)
+    private val _isSessionActive = AtomicReference<Boolean>(false)
+    private val _isServiceConnected = AtomicReference<Boolean>(false)
     private var shouldAutoReconnect = true
 
     // Use atomic references for thread safety
@@ -46,8 +46,8 @@ class GlyphManager @Inject constructor(
     val sessionState: Boolean get() = _sessionState.get()
 
     // Public properties for external access
-    val isSessionActive: Boolean get() = _isSessionActive
-    val isServiceConnected: Boolean get() = _isServiceConnected
+    val isSessionActive: Boolean get() = _isSessionActive.get()
+    val isServiceConnected: Boolean get() = _isServiceConnected.get()
 
     // Callback for session state changes
     var onSessionStateChanged: ((Boolean) -> Unit)? = null
@@ -95,7 +95,7 @@ class GlyphManager @Inject constructor(
         override fun onServiceConnected(componentName: ComponentName) {
             Log.d(TAG, "Glyph Service Connected")
             LoggingManager.logSessionState("SERVICE_CONNECTED", "Component: ${componentName.className}")
-                _isServiceConnected = true
+                _isServiceConnected.set(true)
                 
                 try {
                     // Initialize GlyphManager first
@@ -129,7 +129,7 @@ class GlyphManager @Inject constructor(
         override fun onServiceDisconnected(componentName: ComponentName) {
             Log.d(TAG, "Glyph Service Disconnected")
             LoggingManager.logSessionState("SERVICE_DISCONNECTED", "Component: ${componentName.className}")
-                _isServiceConnected = false
+                _isServiceConnected.set(false)
                 cleanup()
             }
         }
@@ -139,7 +139,7 @@ class GlyphManager @Inject constructor(
      * Initialize the Glyph Manager
      */
     fun initialize() {
-        if (isInitialized) return
+        if (isInitialized.get()) return
 
             try {
                 mGM = com.nothing.ketchum.GlyphManager.getInstance(context)
@@ -149,7 +149,7 @@ class GlyphManager @Inject constructor(
             // as required by the GDK. Without this call the service never
             // connects and the SDK logs "Non registed" for each frame.
             mGM?.init(mCallback)
-                isInitialized = true
+                isInitialized.set(true)
             Log.d(TAG, "Glyph Manager initialized and service binding started")
             } catch (e: Exception) {
             Log.e(TAG, "Failed to initialize Glyph Manager: ${e.message}")
@@ -164,11 +164,11 @@ class GlyphManager @Inject constructor(
         try {
             // Clear locally tracked animations (SDK handles its own cleanup)
             registeredAnimations.clear()
-            
+
             // Close session
-            _isSessionActive = false
-            isInitialized = false
-            
+            _isSessionActive.set(false)
+            isInitialized.set(false)
+
             Log.d(TAG, "GlyphManager cleaned up successfully")
             } catch (e: Exception) {
             Log.e(TAG, "Error during cleanup", e)
@@ -316,7 +316,7 @@ class GlyphManager @Inject constructor(
      * Returns true if session is now active, false otherwise
      */
     fun forceEnsureSession(): Boolean {
-        if (!_isServiceConnected) {
+        if (!_isServiceConnected.get()) {
             Log.d(TAG, "forceEnsureSession: Service not connected, attempting connection")
             try {
                 initialize()
@@ -324,18 +324,18 @@ class GlyphManager @Inject constructor(
 
             // Wait up to 2 s for callback
             var waited = 0
-            while (!_isServiceConnected && waited < 2000) {
+            while (!_isServiceConnected.get() && waited < 2000) {
                 Thread.sleep(100)
                 waited += 100
             }
 
-            if (!_isServiceConnected) {
+            if (!_isServiceConnected.get()) {
                 Log.w(TAG, "forceEnsureSession: Service still not connected after wait")
                 return false
             }
         }
 
-        if (_isSessionActive) {
+        if (_isSessionActive.get()) {
             Log.d(TAG, "Session already active")
             return true
         }
@@ -356,7 +356,7 @@ class GlyphManager @Inject constructor(
     fun openSession() {
         try {
             mGM?.openSession()
-            _isSessionActive = true
+            _isSessionActive.set(true)
             _sessionState.set(true)
             onSessionStateChanged?.invoke(true)
             Log.d(TAG, "Glyph session opened")
@@ -373,7 +373,7 @@ class GlyphManager @Inject constructor(
     fun closeSession() {
         try {
             mGM?.closeSession()
-            _isSessionActive = false
+            _isSessionActive.set(false)
             _sessionState.set(false)
             onSessionStateChanged?.invoke(false)
             Log.d(TAG, "Glyph session closed")
